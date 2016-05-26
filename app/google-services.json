@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "674450023557",
+    "firebase_url": "https://atomic-arbor-130123.firebaseio.com",
+    "project_id": "atomic-arbor-130123",
+    "storage_bucket": "atomic-arbor-130123.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674450023557:android:167377d22e2a1ffd",
+        "android_client_info": {
+          "package_name": "com.example.iamamittank.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674450023557-2815r0jop74afa2c70mags642ahss0dm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHugyYceMb7td7OA8Y_wOoCv_RkXaG0J8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674450023557:android:28dbe45d036483b8",
+        "android_client_info": {
+          "package_name": "com.example.iamamittank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674450023557-2815r0jop74afa2c70mags642ahss0dm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHugyYceMb7td7OA8Y_wOoCv_RkXaG0J8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

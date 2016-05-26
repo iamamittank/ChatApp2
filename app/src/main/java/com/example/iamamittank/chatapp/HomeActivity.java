@@ -1,82 +1,143 @@
 package com.example.iamamittank.chatapp;
 
-import android.os.AsyncTask;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import com.example.iamamittank.model.Message;
-
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+import com.example.iamamittank.model.User;
+import com.facebook.login.LoginManager;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabSelectedListener;
 
 /**
  * Created by iamamittank on 26-Apr-16.
  */
 public class HomeActivity extends AppCompatActivity {
 
-    Button btn;
-    EditText txt;
+    ProgressDialog progressDialog;
+    CoordinatorLayout coordinatorLayout;
+    User user;
+    String regId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_main);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        user = bundle.getParcelable("user_info");
+
+        AppConfig.user_id = user.getId();
+
+        //ServerComm serverComm = new ServerComm();
+        //serverComm.sendFcmToken(FirebaseInstanceId.getInstance().getToken());
+
+        Log.i("Token" , FirebaseInstanceId.getInstance().getToken());
+
+        Bundle user_bundle = new Bundle();
+        user_bundle.putParcelable("user_info", user);
+        UserProfile user_info = new UserProfile();
+        user_info.setArguments(user_bundle);
+        getIntent().putExtras(user_bundle);
+
+        BottomBar bottomBar = BottomBar.attach(this, savedInstanceState);
+        bottomBar.setItemsFromMenu(R.menu.bottom_bar, new OnMenuTabSelectedListener() {
+            @Override
+            public void onMenuItemSelected(@IdRes int menuItemId) {
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                switch (menuItemId) {
+                    case R.id.friends:
+                        FriendListFragment friendListFragment = new FriendListFragment();
+                        fragmentTransaction.replace(R.id.placeholder, friendListFragment);
+                        fragmentTransaction.commit();
+                        break;
+                    case R.id.chats:
+                        ChatHome chatHome = new ChatHome();
+                        fragmentTransaction.replace(R.id.placeholder,chatHome);
+                        fragmentTransaction.commit();
+                        break;
+                    case R.id.profile:
+                        UserProfile userProfile = new UserProfile();
+                        fragmentTransaction.replace(R.id.placeholder,userProfile);
+                        fragmentTransaction.commit();
+                        break;
+                    default:
+                        finish();
+                }
+            }
+        });
+        bottomBar.setActiveTabColor("#C2185B");
+        bottomBar.useDarkTheme(true);
+        bottomBar.setDefaultTabPosition(1);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        txt = (EditText) findViewById(R.id.editText);
-        btn = (Button) findViewById(R.id.button);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new HttpRequestTask().execute();
-            }
-        });
     }
 
-    private class HttpRequestTask extends AsyncTask<Void, Void, Message> {
 
-        @Override
-        protected Message doInBackground(Void... params) {
-            try {
-                final String url = getUrl();
-                //final String url = "http://172.19.3.43:8080/chatapp-server-01/webapi/messages/2";
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                Message msg = restTemplate.getForObject(url, Message.class);
-                return msg;
-            } catch (Exception e) {
-                Log.e("HomeActivity", e.getMessage(), e);
-            }
-            return null;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.invite_friends:
+                return true;
+            case R.id.settings:
+                return true;
+            case R.id.fb_logout:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setMessage("Do you want to logout ?");
+                alertDialogBuilder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        progressDialog = new ProgressDialog(HomeActivity.this);
+                        progressDialog.setTitle("Logout");
+                        progressDialog.setMessage("Facebook logging out...");
+                        progressDialog.setIndeterminate(false);
+                        progressDialog.show();
+                        AppConfig.user_id = null;
+                        LoginManager.getInstance().logOut();
+                        startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                        progressDialog.dismiss();
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        @Override
-        protected void onPostExecute(Message message) {
-            TextView messageId = (TextView) findViewById(R.id.message_id);
-            TextView sender = (TextView) findViewById(R.id.sender);
-            TextView receiver = (TextView) findViewById(R.id.receiver);
-            TextView messageBody = (TextView) findViewById(R.id.message_body);
-
-            messageId.setText(String.valueOf(message.getMessageId()));
-            sender.setText(String.valueOf(message.getSenderId()));
-            receiver.setText(String.valueOf(message.getReceiverId()));
-            messageBody.setText(String.valueOf(message.getMessageBody()));
-        }
     }
 
-    private String getUrl() {
-        int num = Integer.parseInt(txt.getText().toString());
-        return "http://192.168.1.2:8080/chatapp-server-01/webapi/messages/" + String.valueOf(num);
-    }
 }

@@ -3,33 +3,19 @@ package com.example.iamamittank.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.security.PrivateKey;
-import java.security.PublicKey;
-
-/**
- * Created by iamamittank on 26-Apr-16.
- */
-public class User implements Parcelable {
+public class UserClient implements Parcelable {
 
     private long id;
     private String name;
     private String email;
-    private PublicKey publicKey;
-    private PrivateKey privateKey;
+    private String publicKey;
+    private String privateKey;
 
-    public User() {
+    public UserClient() {
     }
 
-    public User(long id, String name, String email) {
+    public UserClient(long id, String name, String email, String publicKey, String privateKey) {
         super();
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.publicKey = null;
-        this.privateKey = null;
-    }
-
-    public User(long id, String name, String email, PublicKey publicKey, PrivateKey privateKey) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -37,61 +23,54 @@ public class User implements Parcelable {
         this.privateKey = privateKey;
     }
 
-    protected User(Parcel in) {
+    protected UserClient(Parcel in) {
         id = in.readLong();
         name = in.readString();
         email = in.readString();
+        publicKey = in.readString();
+        privateKey = in.readString();
     }
 
-    public static final Creator<User> CREATOR = new Creator<User>() {
+    public static final Creator<UserClient> CREATOR = new Creator<UserClient>() {
         @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
+        public UserClient createFromParcel(Parcel source) {
+            return new UserClient(source);
         }
 
         @Override
-        public User[] newArray(int size) {
-            return new User[size];
+        public UserClient[] newArray(int size) {
+            return new UserClient[size];
         }
     };
 
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public PublicKey getPublicKey() {
+    public String getPublicKey() {
         return publicKey;
     }
-
-    public void setPublicKey(PublicKey publicKey) {
+    public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
     }
-
-    public PrivateKey getPrivateKey() {
+    public String getPrivateKey() {
         return privateKey;
     }
-
-    public void setPrivateKey(PrivateKey privateKey) {
+    public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
 
@@ -102,8 +81,6 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeString(name);
-        dest.writeString(email);
+
     }
 }

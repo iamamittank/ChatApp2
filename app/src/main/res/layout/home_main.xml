@@ -3,54 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText" />
 
-    <TextView
-        android:id="@+id/sender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/sender" />
-
-    <TextView
-        android:id="@+id/receiver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/sender"
-        android:layout_marginTop="25dp"
-        android:text="@string/receiver" />
-
-    <TextView
-        android:id="@+id/message_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_toRightOf="@+id/sender"
-        android:text="@string/message_id" />
-
-    <TextView
-        android:id="@+id/message_body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/message_id"
-        android:layout_alignTop="@+id/receiver"
-        android:text="@string/message_body" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OK"
-        android:id="@+id/button"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    <FrameLayout
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"></FrameLayout>
 
 </RelativeLayout>
