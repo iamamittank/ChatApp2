@@ -1,0 +1,6 @@
+{
+  "name": "ChatApp",
+  "tagline": "ChatApp Android Client",
+  "body": "The ChatApp which we have developed will be used by people all around the world. The system is integrated with Facebook. So, any user who is on Facebook, can logs into the application using his/her Facebook login credentials rather than having to complete a cumbersome registration process. \r\n\r\nAfter logging in, users can see all the details and information which they are eligible to access in line with their user permissions. The system will not allow users to see each other’s private data without appropriate permissions from respected user and system work process.\r\n\r\nUser profile will be generated automatically, as app allows user to login using Facebook only. So, app will fetch all necessary information from user’s Facebook profile (like name, email, profile picture) and will use it according to ChatApp requirements.\r\n\r\nAfter logging in to ChatApp, user will be eligible to chat with friends who are on application already. \r\n\r\nAs a security concern, application provides end-to-end encryption. Application takes care of each message to be stored and communicated through network in encrypted format.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
