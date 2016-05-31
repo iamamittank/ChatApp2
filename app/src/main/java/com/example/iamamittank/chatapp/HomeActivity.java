@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.iamamittank.model.SessionClient;
 import com.example.iamamittank.model.User;
 import com.facebook.login.LoginManager;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -42,8 +43,12 @@ public class HomeActivity extends AppCompatActivity {
 
         AppConfig.user_id = user.getId();
 
-        //ServerComm serverComm = new ServerComm();
-        //serverComm.sendFcmToken(FirebaseInstanceId.getInstance().getToken());
+        String fcmToken = FirebaseInstanceId.getInstance().getToken();
+
+        SessionClient sessionClient = new SessionClient(AppConfig.user_id, fcmToken);
+
+        ServerComm serverComm = new ServerComm();
+        serverComm.sendFcmToken(sessionClient);
 
         Log.i("Token" , FirebaseInstanceId.getInstance().getToken());
 

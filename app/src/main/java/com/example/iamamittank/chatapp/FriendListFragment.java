@@ -20,6 +20,7 @@ import com.example.iamamittank.model.Friend;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -95,6 +96,7 @@ public class FriendListFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
             for(int i=0; i<friendArrayList.size(); i++) {
                 Friend friend = new Friend();

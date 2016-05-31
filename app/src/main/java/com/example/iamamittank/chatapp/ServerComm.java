@@ -2,6 +2,8 @@ package com.example.iamamittank.chatapp;
 
 import android.os.AsyncTask;
 
+import com.example.iamamittank.model.SessionClient;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,23 +18,23 @@ import org.springframework.web.client.RestTemplate;
  */
 public class ServerComm {
 
-    public void sendFcmToken(String token) {
+    public void sendFcmToken(SessionClient session) {
 
-        new sendToken().execute(token);
+        new sendToken().execute(session);
 
     }
 
-    public class sendToken extends AsyncTask<String, Void,Void> {
+    public class sendToken extends AsyncTask<SessionClient, Void,Void> {
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Void doInBackground(SessionClient... params) {
 
             try {
-                final String url = "http://" + AppConfig.ip_address + ":8080/chatapp-server-01/webapi/users/" + AppConfig.user_id.toString() + "/token/" + params[0];
+                final String url = "http://" + AppConfig.ip_address + ":8080/chatapp-server-01/webapi/users/session";
 
                 HttpHeaders requestHeaders = new HttpHeaders();
                 requestHeaders.setContentType(new MediaType("application","json"));
-                HttpEntity<String> requestEntity = new HttpEntity<String>(params[0],requestHeaders);
+                HttpEntity<SessionClient> requestEntity = new HttpEntity<SessionClient>(params[0],requestHeaders);
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

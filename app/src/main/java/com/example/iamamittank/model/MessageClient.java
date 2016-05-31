@@ -3,47 +3,54 @@ package com.example.iamamittank.model;
 /**
  * Created by iamamittank on 26-Apr-16.
  */
-public class Message {
+public class MessageClient {
 
-    private int messageId;
-    private int senderId;
-    private int receiverId;
+    private long senderId;
+    private long receiverId;
     private String messageBody;
+    private String key;
 
-    public Message() {
+    public MessageClient() {
         super();
     }
 
-    public Message(int messageId, int senderId, int receiverId, String messageBody) {
+    public MessageClient(long senderId, long receiverId, String messageBody, String key) {
         super();
-        this.messageId = messageId;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.messageBody = messageBody;
+        this.key = key;
     }
 
-    public int getMessageId() {
-        return messageId;
-    }
-    public void setMessageId(int messageId) {
-        this.messageId = messageId;
-    }
-    public int getSenderId() {
+    public long getSenderId() {
         return senderId;
     }
-    public void setSenderId(int senderId) {
+
+    public void setSenderId(long senderId) {
         this.senderId = senderId;
     }
-    public int getReceiverId() {
+
+    public long getReceiverId() {
         return receiverId;
     }
-    public void setReceiverId(int receiverId) {
+
+    public void setReceiverId(long receiverId) {
         this.receiverId = receiverId;
     }
+
     public String getMessageBody() {
         return messageBody;
     }
+
     public void setMessageBody(String messageBody) {
         this.messageBody = messageBody;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

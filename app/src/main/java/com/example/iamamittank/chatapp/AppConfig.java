@@ -5,7 +5,7 @@ package com.example.iamamittank.chatapp;
  */
 public class AppConfig {
 
-    public static String ip_address = "192.168.1.5";
+    public static String ip_address = "172.19.11.54";
     public static Long user_id;
 
 }

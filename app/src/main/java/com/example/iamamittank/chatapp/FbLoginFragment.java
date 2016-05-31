@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.example.iamamittank.model.User;
 import com.example.iamamittank.model.UserClient;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -113,7 +114,12 @@ public class FbLoginFragment extends android.support.v4.app.Fragment {
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         imageView = (ImageView) getActivity().findViewById(R.id.imageView);
-
+        AccessToken token;
+        token = AccessToken.getCurrentAccessToken();
+        if (token != null) {
+            Intent intent = new Intent(getActivity(), HomeActivity.class);
+            getActivity().startActivity(intent);
+        }
     }
 
     @Nullable
@@ -183,8 +189,6 @@ public class FbLoginFragment extends android.support.v4.app.Fragment {
                 KeyFactory kf = KeyFactory.getInstance("RSA","BC");
                 PublicKey publicKey = kf.generatePublic(new X509EncodedKeySpec(pubKey));
                 PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(privKey));
-                Log.i("Public Key" , publicKey.toString());
-                Log.i("Private Key", privateKey.toString());
                 User user = new User(userClient.getId(), userClient.getName(),userClient.getEmail(),publicKey,privateKey);
 
                 Intent intent = new Intent(getActivity(), HomeActivity.class);

@@ -8,14 +8,15 @@
     <ListView
         android:id="@+id/chat_list"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:stackFromBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_above="@+id/msg_layout"
         android:transcriptMode="alwaysScroll" />
 
     <LinearLayout
+        android:id="@+id/msg_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -23,8 +24,7 @@
             android:id="@+id/msg_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:inputType="textMultiLine"
             android:maxLines="5" />
 
@@ -32,10 +32,10 @@
             android:id="@+id/msg_send"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/msg_text"
             android:layout_weight="1"
-            android:text="SEND" />
+            android:background="@android:color/transparent"
+            android:textColor="#0000A0"
+            android:text="SEND"/>
 
     </LinearLayout>
 
